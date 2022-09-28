@@ -361,7 +361,7 @@ public class window extends JFrame implements WindowListener, ActionListener{
             f.setText(text+ad.getText());//Пишем плюсы
             text="";//Обнуляет
             z = '+';//Приравняли для проверки
-            b = '/';
+            b = '0';
             }
 
         }
@@ -384,7 +384,7 @@ public class window extends JFrame implements WindowListener, ActionListener{
                 f.setText(text+sub.getText());//Пишем плюсы
                 text="";//Обнуляет
                 z = '-';//Приравняли для проверки
-                b = '/';
+                b = '0';
             }
             
 
@@ -403,11 +403,13 @@ public class window extends JFrame implements WindowListener, ActionListener{
                 f.setText(text+eqw.getText());//Пишем плюсы
                 text="";//Обнуляет
                 z = '*';//Приравняли для проверки
+
             }else{
                 a = Float.parseFloat(text);//Приравниваем строку к числу
                 f.setText(text+eqw.getText());//Пишем плюсы
                 text="";//Обнуляет
                 z = '*';//Приравняли для проверки
+                b = '0';
             }
         }
         if (e.getSource()==div){
@@ -429,6 +431,7 @@ public class window extends JFrame implements WindowListener, ActionListener{
                 f.setText(text+div.getText());//Пишем плюсы
                 text="";//Обнуляет
                 z = ':';//Приравняли для проверки
+                b = '0';
             }
         }
         if (e.getSource()==result){
@@ -455,6 +458,7 @@ public class window extends JFrame implements WindowListener, ActionListener{
                     //обратно числа в строку перевожу
                     f.setText(String.valueOf(a+b));//ВЫВОДИМ РЕЗУЛЬТАТ
                     text=String.valueOf(a+b);//Обнуляет
+                    b = '0';
                 }
             }
             if(z=='-'){
