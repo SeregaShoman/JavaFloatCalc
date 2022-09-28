@@ -24,18 +24,23 @@ public class window extends JFrame implements WindowListener, ActionListener{
     private JButton result = new JButton("=");//Кнопочка результата
     private JButton ad = new JButton("+");//Кнопочка сложения
     private JButton eqw = new JButton("*");//Кнопочка умножения
-    private JButton div = new JButton("/");//Кнопочка деления
+    private JButton div = new JButton(":");//Кнопочка деления
     private JButton sq = new JButton("sqrt");//Кнопочка степень
     private JButton сhange = new JButton("+ / -");//Кнопочка смена знака
     private JButton sub = new JButton("-");//Кнопочка вычитания
     private JButton Cancel = new JButton("<=");//Кнопочка удаления символа
     private JButton fl = new JButton(".");//Кнопочка точки
+    private JButton dr = new JButton("/");//Кнопочка точки
     private JButton cr = new JButton("√");//Кнопочка корня
     private JButton fact = new JButton("!");//Кнопочка факториала
     private JButton pi = new JButton("P");//Кнопочка пи
     private String text = "";//Пустая переменная для накопления в текстовом поле
     private float a = 0;//Первая переменная для формул
     private float b = 0;//Вторая переменная для формул
+    private int aa = 0;//Первая переменная для формул
+    private int bb = 0;//Вторая переменная для формул
+    private int p = 0;//Первая переменная для формул
+    private int y = 0;//Вторая переменная для формул
     private int l = 65;//Первая переменная для формул
     private int m = 65;//Вторая переменная для формул
     private char z;//символ для проверки на то какой знак в методе равно
@@ -52,6 +57,13 @@ public class window extends JFrame implements WindowListener, ActionListener{
         f.setLocation(25,25);//Кординаты окна вывода
         f.setVisible(true);//Видимость окна вывода
         add(f);//Добавление окна вывода
+        dr.setFont(ex);//Шрифт кнопочки
+        dr.setSize(65, 65);//Размеры кнопочки sqrt
+        dr.setLocation(265, 385);//Координаты кнопочки sqrt
+        dr.setVisible(true);//Видимость кнопочки sqrt
+        add(dr);//Добавление кнопочки sqrt
+        dr.addActionListener(this);//Обработчик нажатия для проверки if
+        //-----------------------------
         pi.setFont(ex);//Шрифт кнопочки
         pi.setSize(65, 32);//Размеры кнопочки sqrt
         pi.setLocation(265, 105);//Координаты кнопочки sqrt
@@ -191,8 +203,8 @@ public class window extends JFrame implements WindowListener, ActionListener{
         add(Del);//Добавление кнопочки удаления
         Del.addActionListener(this);//Обработчик нажатия для проверки if
         result.setFont(ex);//Шрифт кнопочки
-        result.setSize(65, 155);//Размеры кнопочки =
-        result.setLocation(265, 385);//Координаты кнопочки =
+        result.setSize(65, 65);//Размеры кнопочки =
+        result.setLocation(265, 465);//Координаты кнопочки =
         result.setVisible(true);//Видимость кнопочки =
         add(result);//Добавление кнопочки =
         result.addActionListener(this);
@@ -269,6 +281,11 @@ public class window extends JFrame implements WindowListener, ActionListener{
             f.setText(text);//Так же через геттер получаем текст кнопочки и добавляем через ссетер его в поле
 
         }
+        if (e.getSource()==dr){
+            text = text + dr.getText();//Та самая пустая переменная к которая добавляет числа = числу нажатий на кнопку
+            f.setText(text);//Так же через геттер получаем текст кнопочки и добавляем через ссетер его в поле
+
+        }
         if (e.getSource()==b7){
             text = text + b7.getText();//Та самая пустая переменная к которая добавляет числа = числу нажатий на кнопку
             f.setText(text);//Так же через геттер получаем текст кнопочки и добавляем через ссетер его в поле
@@ -326,57 +343,187 @@ public class window extends JFrame implements WindowListener, ActionListener{
         }
         
         if (e.getSource()==ad){
+            String s = f.getText();
+            if (s.contains("/")) {
+                b = '/';//Если блять этот символ нахуй есть то я приравниваю его к переменной
+                String n = f.getText();//получаю строку
+                char aChar = n.charAt(0);//беру первое число как знаменатель и его символ
+                char bChar = n.charAt(2);//беру второе число как делитель и его символ
+                String bStr = Character.toString(bChar);//делаю строкой
+                String aStr = Character.toString(aChar);//делаю строкой
+                aa = Integer.parseInt(aStr);//делаю число 
+                bb = Integer.parseInt(bStr);//делаю число
+                f.setText(text+ad.getText());//Пишем плюсы
+                text="";//Обнуляет
+                z = '+';//Приравняли для проверки
+            }else{
             a = Float.parseFloat(text);//Приравниваем строку к числу
             f.setText(text+ad.getText());//Пишем плюсы
             text="";//Обнуляет
             z = '+';//Приравняли для проверки
+            b = '/';
+            }
 
         }
         if (e.getSource()==sub){
-            a = Float.parseFloat(text);//Приравниваем строку к числу
-            f.setText(text+sub.getText());//Пишем плюсы
-            text="";//Обнуляет
-            z = '-';//Приравняли для проверки
+            String s = f.getText();
+            if (s.contains("/")) {
+                b = '/';//Если блять этот символ нахуй есть то я приравниваю его к переменной
+                String n = f.getText();//получаю строку
+                char aChar = n.charAt(0);//беру первое число как знаменатель и его символ
+                char bChar = n.charAt(2);//беру второе число как делитель и его символ
+                String bStr = Character.toString(bChar);//делаю строкой
+                String aStr = Character.toString(aChar);//делаю строкой
+                aa = Integer.parseInt(aStr);//делаю число 
+                bb = Integer.parseInt(bStr);//делаю число
+                f.setText(text+sub.getText());//Пишем плюсы
+                text="";//Обнуляет
+                z = '-';//Приравняли для проверки
+            }else{
+                a = Float.parseFloat(text);//Приравниваем строку к числу
+                f.setText(text+sub.getText());//Пишем плюсы
+                text="";//Обнуляет
+                z = '-';//Приравняли для проверки
+                b = '/';
+            }
+            
 
         }
         if (e.getSource()==eqw){
-            a = Float.parseFloat(text);//Приравниваем строку к числу
-            f.setText(text+eqw.getText());//Пишем плюсы
-            text="";//Обнуляет
-            z = '*';//Приравняли для проверки
-
+            String s = f.getText();
+            if (s.contains("/")) {
+                b = '/';//Если блять этот символ нахуй есть то я приравниваю его к переменной
+                String n = f.getText();//получаю строку
+                char aChar = n.charAt(0);//беру первое число как знаменатель и его символ
+                char bChar = n.charAt(2);//беру второе число как делитель и его символ
+                String bStr = Character.toString(bChar);//делаю строкой
+                String aStr = Character.toString(aChar);//делаю строкой
+                aa = Integer.parseInt(aStr);//делаю число 
+                bb = Integer.parseInt(bStr);//делаю число
+                f.setText(text+eqw.getText());//Пишем плюсы
+                text="";//Обнуляет
+                z = '*';//Приравняли для проверки
+            }else{
+                a = Float.parseFloat(text);//Приравниваем строку к числу
+                f.setText(text+eqw.getText());//Пишем плюсы
+                text="";//Обнуляет
+                z = '*';//Приравняли для проверки
+            }
         }
         if (e.getSource()==div){
-            a = Float.parseFloat(text);//Приравниваем строку к числу
-            f.setText(text+div.getText());//Пишем плюсы
-            text="";//Обнуляет
-            z = '/';//Приравняли для проверки
-
+            String s = f.getText();//Получаю строку в переменную
+            if (s.contains("/")) {//Проверяю есть ли символ в строке
+                b = '/';//Если блять этот символ нахуй есть то я приравниваю его к переменной
+                String n = f.getText();//получаю строку
+                char aChar = n.charAt(0);//беру первое число как знаменатель и его символ
+                char bChar = n.charAt(2);//беру второе число как делитель и его символ
+                String bStr = Character.toString(bChar);//делаю строкой
+                String aStr = Character.toString(aChar);//делаю строкой
+                aa = Integer.parseInt(aStr);//делаю число 
+                bb = Integer.parseInt(bStr);//делаю число
+                f.setText(text+div.getText());//Пишем плюсы
+                text="";//Обнуляет
+                z = ':';//Приравняли для проверки
+              }else{
+                a = Float.parseFloat(text);//Приравниваем строку к числу
+                f.setText(text+div.getText());//Пишем плюсы
+                text="";//Обнуляет
+                z = ':';//Приравняли для проверки
+            }
         }
         if (e.getSource()==result){
             if(z=='+'){
-                b=Float.parseFloat(text);//Приравниваем второе число из поля
-                //обратно числа в строку перевожу
-                f.setText(String.valueOf(a+b));//ВЫВОДИМ РЕЗУЛЬТАТ
-                text=String.valueOf(a+b);//Обнуляет
+                if(b=='/'){
+                    String n = f.getText();//получаю строку
+                    char zChar = n.charAt(0);//беру первое число как знаменатель и его символ
+                    char yChar = n.charAt(2);//беру второе число как делитель и его символ
+                    String aStr = Character.toString(zChar);//делаю строкой
+                    String bStr = Character.toString(yChar);//делаю строкой
+                    p = Integer.parseInt(aStr);//делаю число 
+                    y = Integer.parseInt(bStr);//делаю число
+                    int stp1 = aa*y;
+                    //int stp2 = bb*y;
+                    int stp3 = p*bb;
+                    int stp4 = y*bb;
+                    int out1 = stp1+stp3;
+                    int out2 = stp4;
+                    String out = "" + out1 + "/" + out2;//делаю всё это строкой
+                    f.setText(String.valueOf(out));//Вывожу результат
+                    text=String.valueOf(a/b);//обнуляю
+                }else{
+                    b=Float.parseFloat(text);//Приравниваем второе число из поля
+                    //обратно числа в строку перевожу
+                    f.setText(String.valueOf(a+b));//ВЫВОДИМ РЕЗУЛЬТАТ
+                    text=String.valueOf(a+b);//Обнуляет
+                }
             }
             if(z=='-'){
-                b=Float.parseFloat(text);//Приравниваем второе число из поля
-                //обратно числа в строку перевожу
-                f.setText(String.valueOf(a-b));//ВЫВОДИМ РЕЗУЛЬТАТ
-                text=String.valueOf(a-b);//Обнуляет
+                if(b=='/'){
+                    String n = f.getText();//получаю строку
+                    char zChar = n.charAt(0);//беру первое число как знаменатель и его символ
+                    char yChar = n.charAt(2);//беру второе число как делитель и его символ
+                    String aStr = Character.toString(zChar);//делаю строкой
+                    String bStr = Character.toString(yChar);//делаю строкой
+                    p = Integer.parseInt(aStr);//делаю число 
+                    y = Integer.parseInt(bStr);//делаю число
+                    int stp1 = aa*y;
+                    //int stp2 = bb*y;
+                    int stp3 = p*bb;
+                    int stp4 = y*bb;
+                    int out1 = stp1-stp3;
+                    int out2 = stp4;
+                    String out = "" + out1 + "/" + out2;//делаю всё это строкой
+                    f.setText(String.valueOf(out));//Вывожу результат
+                    text=String.valueOf(a/b);//обнуляю
+                }else{
+                    b=Float.parseFloat(text);//Приравниваем второе число из поля
+                    //обратно числа в строку перевожу
+                    f.setText(String.valueOf(a-b));//ВЫВОДИМ РЕЗУЛЬТАТ
+                    text=String.valueOf(a-b);//Обнуляет
+                }
             }
             if(z=='*'){
-                b=Float.parseFloat(text);//Приравниваем второе число из поля
-                //обратно числа в строку перевожу
-                f.setText(String.valueOf(a*b));//ВЫВОДИМ РЕЗУЛЬТАТ
-                text=String.valueOf(a*b);//Обнуляет
+                if(b=='/'){
+                    String n = f.getText();//получаю строку
+                    char zChar = n.charAt(0);//беру первое число как знаменатель и его символ
+                    char yChar = n.charAt(2);//беру второе число как делитель и его символ
+                    String aStr = Character.toString(zChar);//делаю строкой
+                    String bStr = Character.toString(yChar);//делаю строкой
+                    p = Integer.parseInt(aStr);//делаю число 
+                    y = Integer.parseInt(bStr);//делаю число
+                    int out1 = aa*p;//ну тут я считаю знаминатель
+                    int out2 = bb*y;//а тут я считаю числитель
+                    String out = "" + out1 + "/" + out2;//делаю всё это строкой
+                    f.setText(String.valueOf(out));//Вывожу результат
+                    text=String.valueOf(a/b);//обнуляю
+                }else{
+                    b=Float.parseFloat(text);//Приравниваем второе число из поля
+                    //обратно числа в строку перевожу
+                    f.setText(String.valueOf(a*b));//ВЫВОДИМ РЕЗУЛЬТАТ
+                    text=String.valueOf(a*b);//Обнуляет
+                }
             }
-            if(z=='/'){
-                b=Float.parseFloat(text);//Приравниваем второе число из поля
-                //обратно числа в строку перевожу
-                f.setText(String.valueOf(a/b));//ВЫВОДИМ РЕЗУЛЬТАТ
-                text=String.valueOf(a/b);//Обнуляет
+            if(z==':'){
+                if(b=='/'){
+                    String n = f.getText();//получаю строку
+                    char zChar = n.charAt(0);//беру первое число как знаменатель и его символ
+                    char yChar = n.charAt(2);//беру второе число как делитель и его символ
+                    String aStr = Character.toString(zChar);//делаю строкой
+                    String bStr = Character.toString(yChar);//делаю строкой
+                    p = Integer.parseInt(aStr);//делаю число 
+                    y = Integer.parseInt(bStr);//делаю число
+                    int out1 = aa*y;//ну тут я считаю знаминатель
+                    int out2 = bb*p;//а тут я считаю числитель
+                    String out = "" + out1 + "/" + out2;//делаю всё это строкой
+                    f.setText(String.valueOf(out));//Вывожу результат
+                    text=String.valueOf(a/b);//обнуляю
+
+                }else{
+                    b=Float.parseFloat(text);//Приравниваем второе число из поля
+                    //обратно числа в строку перевожу
+                    f.setText(String.valueOf(a/b));//ВЫВОДИМ РЕЗУЛЬТАТ
+                    text=String.valueOf(a/b);//Обнуляет
+                }
             }
 
         }
